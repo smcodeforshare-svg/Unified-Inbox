@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <title>Unified Inbox</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <button class="icon-button ghost" id="homeButton" aria-label="Go home">
+          <span>⌂</span>
+        </button>
+        <div class="brand-block">
+          <p class="eyebrow">Android UI prototype 2</p>
+          <h1>Unified Inbox</h1>
+        </div>
+        <button class="icon-button" id="themeToggle" aria-label="Toggle theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </header>
+
+      <main class="main-view">
+        <section class="screen home-screen active" id="homeScreen">
+          <div class="search-panel">
+            <div class="search-shell">
+              <span class="search-icon">⌕</span>
+              <input id="searchInput" type="text" placeholder="Search chats, apps or messages" />
+            </div>
+            <div class="search-meta">
+              <span id="searchHint">Instant filtering</span>
+              <button class="pill-button" id="refreshButton">Refresh</button>
+            </div>
+          </div>
+
+          <div class="filter-row" id="filterRow"></div>
+
+          <div class="section-heading">
+            <h2>Messages</h2>
+            <span id="resultsCount">0 chats</span>
+          </div>
+
+          <div class="refresh-indicator" id="refreshIndicator">Pull to refresh</div>
+          <div class="chat-list" id="chatList"></div>
+          <div class="loading-state" id="loadingState" aria-live="polite">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">✉️</div>
+            <h3>No chats match your filters</h3>
+            <p>Try another keyword or switch filters to see more conversations.</p>
+          </div>
+
+          <button class="fab" id="fabButton" aria-label="New message">+</button>
+          <button class="scroll-top" id="scrollTopButton" aria-label="Scroll to top">↑</button>
+        </section>
+
+        <section class="screen conversation-screen" id="conversationScreen">
+          <div class="conversation-header">
+            <button class="icon-button" id="backButton" aria-label="Back">
+              <span>←</span>
+            </button>
+            <div class="conversation-profile" id="conversationProfile"></div>
+            <div class="conversation-actions">
+              <button class="icon-button action-btn" id="favoriteButton" aria-label="Favourite">★</button>
+              <button class="icon-button action-btn" id="archiveButton" aria-label="Archive">🗂️</button>
+              <button class="icon-button action-btn" id="deleteButton" aria-label="Delete">🗑️</button>
+            </div>
+          </div>
+
+          <div class="conversation-body">
+            <div class="conversation-messages" id="conversationMessages"></div>
+            <div class="typing-indicator hidden" id="typingIndicator">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <div class="composer">
+            <input id="messageInput" type="text" placeholder="Type a message" />
+            <button class="send-btn" id="sendButton">Send</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="overlay hidden" id="appOverlay" role="dialog" aria-modal="true">
+      <div class="overlay-card app-card">
+        <div class="overlay-top">
+          <h3 id="appOverlayTitle">Demo App</h3>
+          <button class="icon-button" id="closeAppOverlay" aria-label="Close overlay">✕</button>
+        </div>
+        <div class="app-hero" id="appOverlayContent"></div>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="notificationOverlay" role="dialog" aria-modal="true">
+      <div class="overlay-card notification-card">
+        <div class="notification-head">
+          <div class="notification-profile" id="notificationProfile"></div>
+          <div>
+            <h3 id="notificationSender">Sender</h3>
+            <p id="notificationMeta">App • Time</p>
+          </div>
+        </div>
+        <div class="notification-body">
+          <p id="notificationMessage">Message preview</p>
+          <div class="notification-details">
+            <span id="notificationId">ID</span>
+            <span id="notificationStatus">Read</span>
+          </div>
+        </div>
+        <div class="notification-actions">
+          <button class="secondary-btn" id="launchRealAppBtn">Open Real App</button>
+          <button class="secondary-btn" id="openConversationBtn">Open Conversation</button>
+          <button class="secondary-btn" id="dismissNotificationBtn">Dismiss</button>
+          <button class="primary-btn" id="closeNotificationBtn">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" aria-live="assertive"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

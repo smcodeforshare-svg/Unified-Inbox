@@ -1,0 +1,23 @@
+# Android build artifacts
+android-wrapper/.gradle/
+android-wrapper/app/build/
+android-wrapper/local.properties
+*.iml
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# ZIPs and temp - exclude all old build files
+*.zip
+*.aab
+*.apk
+*.keystore
+*.jks
+apk-file/
+unified-inbox-htm.zip
+unified-inbox-htm/*.zip
+
+# Node
+node_modules/
