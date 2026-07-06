@@ -6,14 +6,11 @@ on:
     paths:
       - 'android-wrapper/**'
       - '.github/workflows/build-apk.yml'
-  workflow_dispatch:  # Allows manual triggering from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./android-wrapper
 
     steps:
     - name: Checkout code
@@ -26,13 +23,14 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v3
+      uses: gradle/actions/setup-gradle@v4
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x android-wrapper/gradlew
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug
+      working-directory: ./android-wrapper
+      run: ./gradlew assembleDebug --no-daemon --stacktrace
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
@@ -41,8 +39,9 @@ jobs:
         path: android-wrapper/app/build/outputs/apk/debug/app-debug.apk
         if-no-files-found: error
 
-    - name: Build Release APK (unsigned)
-      run: ./gradlew assembleRelease
+    - name: Build Release APK
+      working-directory: ./android-wrapper
+      run: ./gradlew assembleRelease --no-daemon --stacktrace
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
